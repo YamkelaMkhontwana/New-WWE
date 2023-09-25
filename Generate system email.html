@@ -1,0 +1,135 @@
+
+  <title>Student System Email Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #FFDAB9; /* Peach background color */
+    }
+
+    h2 {
+      color: #333;
+      padding: 20px;
+      background-color: #fff; /* White background for heading */
+      border-bottom: 1px solid #ccc;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 20px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    h3 {
+      color: #333;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Student System Email Generator</h2>
+
+<form id="emailForm">
+  <label for="lastName">Last Name (stdLName):</label>
+  <input type="text" id="lastName" required><br>
+
+  <label for="firstNames">First and Middle Names (stdFNames):</label>
+  <input type="text" id="firstNames" required><br>
+
+  <button type="button" onclick="generateEmail()">Generate Email</button>
+</form>
+
+<h3>Generated Emails:</h3>
+<ul id="generatedEmails"></ul>
+
+<script>
+const existingEmails = new Set();
+
+function generateEmail() {
+  const lastName = document.getElementById("lastName").value.trim();
+  const firstNames = document.getElementById("firstNames").value.trim();
+
+  if (!lastName || !firstNames) {
+    alert("Please enter both last name and first/middle names.");
+    return;
+  }
+
+  const stdEmailS = generateStudentSystemEmail(lastName, firstNames);
+  displayGeneratedEmail(stdEmailS);
+}
+
+function generateStudentSystemEmail(lastName, firstNames) {
+  const initials = firstNames.split(' ')
+    .map(name => name.charAt(0).toUpperCase())
+    .join('');
+
+  let stdEmailS = `${lastName}${initials}@SmartSystem.com`.toLowerCase();
+  let count = 1;
+
+  while (existingEmails.has(stdEmailS)) {
+    count++;
+    stdEmailS = `${lastName}${initials}${count.toString().padStart(2, '0')}@SmartSystem.com`.toLowerCase();
+  }
+
+  existingEmails.add(stdEmailS);
+  return stdEmailS;
+}
+
+function displayGeneratedEmail(email) {
+  const generatedEmailsList = document.getElementById("generatedEmails");
+  const listItem = document.createElement("li");
+  listItem.textContent = email;
+  generatedEmailsList.appendChild(listItem);
+}
+</script>
+
+
+</html>
+
+
+
+
+

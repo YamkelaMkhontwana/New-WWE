@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Student Number</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0; /* Light gray background */
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333; /* Dark gray text */
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-right: 10px;
+      background-color: #4CAF50; /* Green */
+      color: white; /* White text */
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #45a049; /* Slightly darker green on hover */
+    }
+
+    #studentNumbers {
+      margin-top: 20px;
+      background-color: white; /* White background for student numbers */
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    #studentNumbers p {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Generate Student Number</h1>
+  <button onclick="generateStudentNumber()">Generate Student Number</button>
+  <button onclick="resetCounter()">Reset Counter</button>
+  <div id="studentNumbers"></div>
+
+  <script>
+    let counter = 1;
+
+    function generateStudentNumber() {
+      // Function to generate a random 4-digit number
+      function generateRandomNumber() {
+        return Math.floor(1000 + Math.random() * 9000);
+      }
+
+      // Function to get the current system time in YYMMDDhhmmss format
+      function getSystemTime() {
+        const now = new Date();
+        const year = String(now.getFullYear()).slice(-2);
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const formattedTime = `${year}${month}${day}${hours}${minutes}${seconds}`;
+        return formattedTime;
+      }
+
+      // Generate the student number
+      const systemTime = getSystemTime();
+      const randomNumber = generateRandomNumber();
+      const studentNumber = `${systemTime}${randomNumber}`;
+
+      // Display the generated student number
+      const studentNumbersContainer = document.getElementById('studentNumbers');
+      studentNumbersContainer.innerHTML += `<p>${counter}. ${studentNumber}</p>`;
+      counter++;
+    }
+
+    function resetCounter() {
+      counter = 1;
+      document.getElementById('studentNumbers').innerHTML = '';
+    }
+  </script>
+</body>
+</html>
+>
+
