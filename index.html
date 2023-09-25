@@ -1,0 +1,48 @@
+<h1> Select your student type </h1>
+<form action="/process_details.php"> 
+    <p> Please select whether you are a new student or a returning student: </p>
+</form>
+<input type="radio" id="newStudent" name="studentType" value="new" > 
+<label  for="newStudent">New Student: </label> <br><br>
+<input type="radio" id="returningStudent" name="studentType" value="returning">
+<label for="returningStudent">Returning Student:</labe2><br> <br> <br>
+    
+    <script>
+        function toggleDetailsFields() {
+          var detailsFields = document.getElementById("detailsFields");
+          var submitButton = document.getElementById("submitButton");
+      
+          if (detailsFields.style.display === "none" || detailsFields.style.display === "") {
+            detailsFields.style.display = "block";
+            submitButton.value = "Submit Details";
+          } else {
+            detailsFields.style.display = "none";
+            submitButton.value = "Submit";
+          }
+        }
+      </script>
+      
+      <form action="process_details.php" method="post">
+        <button type="button" onclick="toggleDetailsFields()">Enter Details</button>
+      
+        <div style="display: none;" id="detailsFields">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required><br><br>
+      
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required><br><br>
+      
+          <label for="age">Age:</label>
+          <input type="number" id="age" name="age" required><br><br>
+        </div>
+      
+        <input type="submit" value="Submit" id="submitButton">
+      </form>
+      
+      
+      
+      
+      
+
+
+
